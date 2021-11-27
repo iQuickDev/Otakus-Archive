@@ -28,6 +28,7 @@ function Initialize()
 async function ToggleTheme()
 {
     const themeIcon = document.querySelector("#themeicon")
+    const root = document.documentElement
 
     themeMode === "dark" ? themeMode = "light" : themeMode = "dark"
 
@@ -37,7 +38,22 @@ async function ToggleTheme()
 
     themeIcon.classList.remove("rotateout")
 
-    themeMode === "dark" ? themeIcon.src= "frontend/media/lightmode.png" : themeIcon.src= "frontend/media/darkmode.png"
+    if (themeMode === "dark")
+    {
+        themeIcon.src= "frontend/media/darkmode.png"
+        themeIcon.classList.add("themeicon-dark")
+        themeIcon.classList.remove("themeicon-light")
+        root.style.setProperty("--background-color", "#303030")
+        root.style.setProperty("--text-color", "#FFF")
+    }
+    else
+    {
+        themeIcon.src= "frontend/media/lightmode.png"
+        themeIcon.classList.remove("themeicon-dark")
+        themeIcon.classList.add("themeicon-light")
+        root.style.setProperty("--background-color", "#FFF")
+        root.style.setProperty("--text-color", "#000")
+    }
 
     themeIcon.classList.add("rotatein")
 

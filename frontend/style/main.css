@@ -22,6 +22,7 @@ body
     color: var(--text-color);
     background-repeat: no-repeat;
     background-size: cover;
+    transition: background-color 1s;
 }
 
 .hidden
@@ -226,13 +227,22 @@ body
     width: 100%;
 }
 
-#footer img
+#themeicon
 {
     margin: 0px 50px 50px auto;
+}
+
+.themeicon-light:hover
+{
+    filter: drop-shadow(0px 0px 5px #000);
+}
+
+.themeicon-dark
+{
     filter: invert(100%);
 }
 
-#footer img:hover
+.themeicon-dark:hover
 {
     filter: drop-shadow(0px 0px 5px #000) invert(100%);
 }
