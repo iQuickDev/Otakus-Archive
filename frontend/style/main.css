@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+:root
+{
+    --primary-color: #8000FF;
+    --background-color: #303030;
+    --window-color: #404040;
+    --text-color: #FFF;
+    --btn-border-color: #B900FF;
+    --btn-reset-background: #FF0074;
+    --sort-selected-color: #000;
+    --box-border-color: #000;
+    font-family: 'Varela Round', sans-serif;
+}
+
+body
+{
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--background-color);
+    color: var(--text-color);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.spacer-5
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.spacer-4
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.spacer-3
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.spacer-2
+{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.spacer-1
+{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.icon
+{
+    width: 80px;
+}
+
+.rotateout
+{
+    animation: rotateout ease-in-out .5s;
+}
+
+.rotatein
+{
+    animation: rotatein ease-in-out .5s;
+}
+
+#header
+{
+    position: relative;
+    height: 80px;
+    background: var(--primary-color);
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: 900;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin: 0;
+    line-height: 80px;
+    z-index: 999;
+}
+
+#header h1
+{
+    margin: auto;
+}
+
+#header img
+{
+    position: absolute;
+}
+
+#header img:first-child
+{
+    left: 15px;
+    top: 10px;
+}
+
+#header img:last-child
+{
+    right: 10px;
+    transition: 1s;
+}
+
+#header img:last-child:hover
+{
+    transform: rotate(180deg);
+}
+
+#title
+{
+    width: 90%;
+}
+
+#settingspanel
+{
+    position: absolute;
+    right: 30px;
+    top: 100px;
+    border: 1px solid var(--box-border-color);
+    border-radius: 10px;
+    background: var(--window-color);
+    text-align: center;
+}
+
+#settingspanel *
+{
+    margin: 10px;
+    display: block;
+}
+
+#settingspanel h3
+{
+    text-align: center;
+    margin: 0;
+    background: var(--primary-color);
+    color: var(--text-color);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom: 1px solid var(--box-border-color);
+    padding: 5px
+}
+
+#bgimage
+{
+    background: var(--background-color);
+    border-radius: 5px;
+    color: var(--text-color);
+    border: 0px;
+    width: 150px;
+    padding: 5px;
+}
+
+
+#resetsettings
+{
+    background: var(--btn-reset-background);
+    border: 2px solid var(--box-border-color);
+    border-radius: 5px;
+    width: 80px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Varela Round', sans-serif;
+    transition: transform .5s;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#resetsettings:hover
+{
+    transform: scale(1.1);
+}
+
+#resetsettings:active
+{
+    transform: scale(0.9);
+}
+
+#emptylisttip h1
+{
+    margin: auto;
+}
+
+#addcontent
+{
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--btn-border-color);
+    background: var(--primary-color);
+    transition: .3s;
+}
+
+#addcontent:hover
+{
+    box-shadow: var(--btn-border-color) 0px 0px 20px 5px;
+    transform: scale(1.1);
+}
+
+#addcontent img
+{
+    vertical-align: middle;
+    margin: auto;
+}
+
+#emptylisttip
+{
+    padding: 20px;
+}
+
+#footer
+{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#footer img
+{
+    margin: 0px 50px 50px auto;
+    filter: invert(100%);
+}
+
+#footer img:hover
+{
+    filter: drop-shadow(0px 0px 5px #000) invert(100%);
+}
+
+/* ---------- MOBILE VIEW ---------- */
+
+@media only screen and (max-width: 600px)
+{
+    #headerimg
+    {
+        display: none;
+    }
+
+    #settingsbtn
+    {
+        display: none;
+    }
+
+    #title
+    {
+        font-size: 2rem;
+    }
+
+    #emptylisttip
+    {
+        font-size: 0.8rem;
+    }
+
+    #addcontent
+    {
+        width: 120px;
+        height: 120px;
+    }
+
+    .icon
+    {
+        width: 40px;
+    }
+}
