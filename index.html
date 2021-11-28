@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="frontend/style/bootstrap-grid.css">
     <link rel="stylesheet" href="frontend/style/animations.css">
+    <link rel="stylesheet" href="frontend/style/utility.css">
     <link rel="stylesheet" href="frontend/style/main.css">
     <title>Otaku's Archives</title>
 </head>
@@ -45,35 +46,68 @@
         <div id="newcontent" class="hidden">
             <div id="newcontentpanel">
                 <h2 id="newcontenttitle">Information</h2>
+                <img id="closemodal" class="icon-small" src="frontend/media/plus.png">
                 <div class="newcontentparameter">
-                <h3>Title</h3>
-                <input name="contenttitle" type="text" id="contenttitle" placeholder="Fancy Title"></input>
+                    <h3>Title</h3>
+                    <input name="contenttitle" type="text" id="contenttitle" placeholder="Fancy Title"></input>
                 </div>
                 <div class="newcontentparameter">
-                <h3>Author</h3>
-                <input name="contentauthor" type="text" id="contentauthor" placeholder="Cute Author"></input>
+                    <h3>Author</h3>
+                    <input name="contentauthor" type="text" id="contentauthor" placeholder="Cute Author"></input>
                 </div>
                 <br>
                 <div class="newcontentparameter">
-                <h3>Type</h3>
-                <select id="contenttype">
-                <option value="Anime">Anime</option>
-                <option value="Manga">Manga</option>
-                </select>
+                    <h3>Type</h3>
+                    <select id="contenttype">
+                        <option value="Anime">Anime</option>
+                        <option value="Manga">Manga</option>
+                    </select>
                 </div>
                 <div class="newcontentparameter">
-                <h3>Date</h3>
-                <input name="contentdate" type="date" id="contentdate"></input>
+                    <h3>Date</h3>
+                    <input name="contentdate" type="date" id="contentdate"></input>
                 </div>
                 <h3>Tags</h3>
                 <button id="addtags"><img class="icon-small" src="frontend/media/plus.png"></button>
-                </div>
+                <button id="submitnewcontent" type="button">Submit</button>
+            </div>
         </div>
+
+        <div id="contenttable">
+            <table id="contentlist">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Tags</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rich Thots</td>
+                        <td>Unknown</td>
+                        <td>Manga</td>
+                        <td>10-11-2021</td>
+                        <td>Hentai</td>
+                    </tr>
+                    <tr>
+                        <td>Euphoria</td>
+                        <td>Unknown</td>
+                        <td>Anime</td>
+                        <td>28-11-2021</td>
+                        <td>Hentai</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <div id="footer" class="row">
             <img id="themeicon" class="icon themeicon-dark" src="frontend/media/lightmode.png">
         </div>
     </div>
-        <script type="module" src="frontend/scripts/main.js"></script>
+    <script type="module" src="frontend/scripts/main.js"></script>
 </body>
 
 </html>

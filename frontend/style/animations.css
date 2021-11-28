@@ -57,6 +57,20 @@
     }
 }
 
+@keyframes hidenewcontentmodal
+{
+  from
+  {
+    opacity: 1;
+    transform: translate(0px);
+  }
+  to
+  {
+    opacity: 0;
+    transform: translateY(500px);
+  }
+}
+
 .rotateout
 {
     animation: rotateout ease-in-out .5s;
@@ -79,4 +93,9 @@
 .shownewcontentmodal
 {
   animation: shownewcontentmodal .5s ease-in-out forwards;
+}
+
+.hidenewcontentmodal
+{
+  animation: hidenewcontentmodal .5s ease-in-out forwards;
 }

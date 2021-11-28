@@ -5,6 +5,8 @@ document.querySelector("#settingsbtn").onclick = ToggleSettings
 document.querySelector("#bgimage").onchange = ChangeBGImage
 document.querySelector("#resetsettings").onclick = ResetSettings
 document.querySelector("#addcontent").onclick = AddContent
+document.querySelector("#closemodal").onclick = CloseNewContentModal
+
 Initialize()
 
 var themeMode = localStorage.getItem("themeMode")
@@ -107,12 +109,36 @@ function ResetSettings()
     document.querySelector("body").style.background = bgImageInput.value
 }
 
-function AddContent()
+async function AddContent()
 {
     const newContentPanel = document.querySelector("#newcontent")
     const firstTimePanel = document.querySelector("#firsttime")
+    const body = document.querySelector("body")
+
+    body.classList.add("no-overflow")
 
     firstTimePanel.classList.add("hidden")
     newContentPanel.classList.remove("hidden")
     newContentPanel.classList.add("shownewcontentmodal")
+
+    await Utility.sleep(500)
+    
+    body.classList.remove("no-overflow")
+}
+
+async function CloseNewContentModal()
+{
+    const newContentPanel = document.querySelector("#newcontent")
+    const body = document.querySelector("body")
+
+    body.classList.add("no-overflow")
+
+    newContentPanel.classList.remove("shownewcontentmodal")
+    newContentPanel.classList.add("hidenewcontentmodal")
+
+    await Utility.sleep(500)
+
+    newContentPanel.classList.add("hidden")
+    newContentPanel.classList.remove("hidenewcontentmodal")
+    body.classList.remove("no-overflow")
 }
