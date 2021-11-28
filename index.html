@@ -12,45 +12,68 @@
 </head>
 
 <body>
-<div class="container-fluid">
-    <div id="header" class="row">
-        <img id="headerimg" class="icon" src="frontend/media/cutesushi.png">
-        <h1 id="title">Otaku's Archives</h1>
-        <img id="settingsbtn" class="icon" src="frontend/media/settings.png">
-    </div>
+    <div class="container-fluid">
+        <div id="header" class="row">
+            <img id="headerimg" class="icon" src="frontend/media/cutesushi.png">
+            <h1 id="title">Otaku's Archives</h1>
+            <img id="settingsbtn" class="icon" src="frontend/media/settings.png">
+        </div>
 
-    <div id="settingsbox" class="row">
-        <div id="settingspanel" class="hidden">
-            <h3>Background</h3>
-            <label for="bgimageurl">Image Link</label>
-            <input name="bgimageurl" type="text" id="bgimage"></input>
-            <button id="resetsettings" type="button">Reset</button>
+        <div id="settingsbox" class="row">
+            <div id="settingspanel" class="hidden">
+                <h3>Background</h3>
+                <label for="bgimageurl">Image Link</label>
+                <input name="bgimageurl" type="text" id="bgimage"></input>
+                <button id="resetsettings" type="button">Reset</button>
+            </div>
+        </div>
+
+        <div class="spacer-1"></div>
+
+        <div id="firsttime">
+            <div id="emptylisttip" class="row">
+                <h1>Your list is empty, push the + button to get started...</h1>
+            </div>
+
+            <div class="spacer-1"></div>
+
+            <div id="addbtn" class="row">
+                <button id="addcontent"><img class="icon" src="frontend/media/plus.png"></button>
+            </div>
+        </div>
+
+        <div id="newcontent" class="hidden">
+            <div id="newcontentpanel">
+                <h2 id="newcontenttitle">Information</h2>
+                <div class="newcontentparameter">
+                <h3>Title</h3>
+                <input name="contenttitle" type="text" id="contenttitle" placeholder="Fancy Title"></input>
+                </div>
+                <div class="newcontentparameter">
+                <h3>Author</h3>
+                <input name="contentauthor" type="text" id="contentauthor" placeholder="Cute Author"></input>
+                </div>
+                <br>
+                <div class="newcontentparameter">
+                <h3>Type</h3>
+                <select id="contenttype">
+                <option value="Anime">Anime</option>
+                <option value="Manga">Manga</option>
+                </select>
+                </div>
+                <div class="newcontentparameter">
+                <h3>Date</h3>
+                <input name="contentdate" type="date" id="contentdate"></input>
+                </div>
+                <h3>Tags</h3>
+                <button id="addtags"><img class="icon-small" src="frontend/media/plus.png"></button>
+                </div>
+        </div>
+        <div id="footer" class="row">
+            <img id="themeicon" class="icon themeicon-dark" src="frontend/media/lightmode.png">
         </div>
     </div>
-
-    <div class="spacer-1"></div>
-
-    <div id="emptylisttip" class="row">
-        <h1>Your list is empty, push the + button to get started...</h1>
-    </div>
-
-    <div class="spacer-1"></div>
-
-    <div id="addbtn" class="row">
-        <button id="addcontent"><img class="icon" src="frontend/media/plus.png"></button>
-    </div>
-
-    <div id="newcontent" class="row">
-        <div id="newcontentpanel" class="hidden">
-            <h2>Information</h2>
-
-    </div>
-
-    <div id="footer" class="row">
-        <img id="themeicon" class="icon themeicon-dark" src="frontend/media/lightmode.png">
-    </div>
-</div>
-<script type="module" src="frontend/scripts/main.js"></script>
+        <script type="module" src="frontend/scripts/main.js"></script>
 </body>
 
 </html>

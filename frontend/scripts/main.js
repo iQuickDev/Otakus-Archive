@@ -4,7 +4,7 @@ document.querySelector("#themeicon").onclick = ToggleTheme
 document.querySelector("#settingsbtn").onclick = ToggleSettings
 document.querySelector("#bgimage").onchange = ChangeBGImage
 document.querySelector("#resetsettings").onclick = ResetSettings
-
+document.querySelector("#addcontent").onclick = AddContent
 Initialize()
 
 var themeMode = localStorage.getItem("themeMode")
@@ -44,6 +44,7 @@ async function ToggleTheme()
         themeIcon.classList.add("themeicon-dark")
         themeIcon.classList.remove("themeicon-light")
         root.style.setProperty("--background-color", "#303030")
+        root.style.setProperty("--window-color", "#404040")
         root.style.setProperty("--text-color", "#FFF")
     }
     else
@@ -52,6 +53,7 @@ async function ToggleTheme()
         themeIcon.classList.remove("themeicon-dark")
         themeIcon.classList.add("themeicon-light")
         root.style.setProperty("--background-color", "#FFF")
+        root.style.setProperty("--window-color", "#CCC")
         root.style.setProperty("--text-color", "#000")
     }
 
@@ -103,4 +105,14 @@ function ResetSettings()
     localStorage.setItem("bgimage", "")
 
     document.querySelector("body").style.background = bgImageInput.value
+}
+
+function AddContent()
+{
+    const newContentPanel = document.querySelector("#newcontent")
+    const firstTimePanel = document.querySelector("#firsttime")
+
+    firstTimePanel.classList.add("hidden")
+    newContentPanel.classList.remove("hidden")
+    newContentPanel.classList.add("shownewcontentmodal")
 }
