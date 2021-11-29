@@ -6,11 +6,16 @@ document.querySelector("#bgimage").onchange = ChangeBGImage
 document.querySelector("#resetsettings").onclick = ResetSettings
 document.querySelector("#addcontent").onclick = AddContent
 document.querySelector("#closemodal").onclick = CloseNewContentModal
+document.querySelector("#searchbtn").onclick = ToggleSearchbar
+
+var sortCriteria = document.querySelector("#sortcriteria").children
+for (let i = 0; i < sortCriteria.length; i++) sortCriteria[i].addEventListener("click", SortContent)
 
 Initialize()
 
 var themeMode = localStorage.getItem("themeMode")
 var settingsPanelToggled = false
+var isSearchbarToggled = false
 
 function Initialize()
 {
@@ -141,4 +146,71 @@ async function CloseNewContentModal()
     newContentPanel.classList.add("hidden")
     newContentPanel.classList.remove("hidenewcontentmodal")
     body.classList.remove("no-overflow")
+}
+
+async function ToggleSearchbar()
+{
+    const searchBtn = document.querySelector("#searchbtn")
+    const searchBarInput = document.querySelector("#searchbarinput")
+    const sortBar = document.querySelector("#sortbar")
+    const sortBy = document.querySelector("#sortby")
+
+    if (isSearchbarToggled)
+    {
+        searchBarInput.classList.add("searchbarhide")
+        sortBar.classList.add("sortbarhide")
+        sortBy.classList.add("sortbyhide")
+
+        await Utility.sleep(1000)
+
+        searchBarInput.classList.remove("searchbarhide")
+        sortBar.classList.remove("sortbarhide")
+        sortBy.classList.remove("sortbyhide")
+
+        searchBarInput.classList.add("hidden")
+        sortBar.classList.add("hidden")
+        sortBy.classList.add("hidden")
+    }
+    else
+    {
+        searchBarInput.classList.remove("hidden")
+        sortBar.classList.remove("hidden")
+
+        searchBarInput.classList.add("searchbarshow")
+        sortBar.classList.add("sortbarshow")
+
+        await Utility.sleep(500)
+
+        sortBy.classList.remove("hidden")
+        sortBy.classList.add("sortbyshow")
+
+        await Utility.sleep(500)
+
+        searchBarInput.classList.remove("searchbarshow")
+        sortBar.classList.remove("sortbarshow")
+        sortBy.classList.remove("sortbyshow")
+    }
+
+    isSearchbarToggled = !isSearchbarToggled
+}
+
+function SortContent()
+{
+    switch (this.innerHTML)
+    {
+        case "Name":
+            break
+
+        case "Author":
+            break
+        
+        case "Type":
+            break
+
+        case "Date":
+            break
+
+        case "Tags":
+            break
+    }
 }

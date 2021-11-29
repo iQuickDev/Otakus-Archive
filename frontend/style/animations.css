@@ -34,7 +34,7 @@
     transform: translateY(0px);
   }
   100% {
-    transform: translateY(-150px);
+    transform: translateY(-200px);
   }
 }
 
@@ -98,4 +98,74 @@
 .hidenewcontentmodal
 {
   animation: hidenewcontentmodal .5s ease-in-out forwards;
+}
+
+@keyframes searchbarshow
+{
+  from
+  {
+    max-width: 100px;
+  }
+  to
+  {
+    max-width: 600px;
+  }
+}
+
+@keyframes sortbarshow
+{
+  from
+  {
+    max-height: 100px;
+  }
+  to
+  {
+    max-height: 600px;
+  }
+}
+
+@keyframes sortbyshow
+{
+  0%
+  {
+    transform: scale(0) rotate(360deg);
+  }
+  75%
+  {
+    transform: scale(1.2);
+  }
+  100%
+  {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.searchbarshow
+{
+  animation: searchbarshow 1s linear forwards;
+}
+
+.sortbarshow
+{
+  animation: sortbarshow 1s linear forwards;
+}
+
+.sortbyshow
+{
+  animation: sortbyshow .5s linear forwards;
+}
+
+.searchbarhide
+{
+  animation: searchbarshow 1s linear reverse forwards;
+}
+
+.sortbarhide
+{
+  animation: sortbarshow 1s linear reverse forwards;
+}
+
+.sortbyhide
+{
+  animation: sortbyshow .5s linear reverse forwards;
 }
