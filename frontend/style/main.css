@@ -29,36 +29,6 @@ body
     background-size: cover;
 }
 
-.spacer-5
-{
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.spacer-4
-{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.spacer-3
-{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.spacer-2
-{
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-.spacer-1
-{
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
 .icon
 {
     width: 80px;
