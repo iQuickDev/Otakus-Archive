@@ -5,8 +5,11 @@ document.querySelector("#settingsbtn").onclick = ToggleSettings
 document.querySelector("#bgimage").onchange = ChangeBGImage
 document.querySelector("#resetsettings").onclick = ResetSettings
 document.querySelector("#addcontent").onclick = AddContent
+document.querySelector("#submitnewcontent").onclick = SubmitNewContent
 document.querySelector("#closemodal").onclick = CloseNewContentModal
 document.querySelector("#searchbtn").onclick = ToggleSearchbar
+document.querySelector("#searchbarinput").onkeyup = Search
+document.querySelector("#mobile-searchbarinput").onkeyup = Search
 
 var sortCriteria = document.querySelector("#sortcriteria").children
 for (let i = 0; i < sortCriteria.length; i++) sortCriteria[i].addEventListener("click", SortContent)
@@ -131,6 +134,32 @@ async function AddContent()
     body.classList.remove("no-overflow")
 }
 
+function SubmitNewContent()
+{
+    let title = document.querySelector("#contenttitle").value
+    let author = document.querySelector("#contentauthor").value
+    let type = document.querySelector("#contenttype").value
+    let date = document.querySelector("#contentdate").value
+
+    let newElements = [title, author, type, date]
+
+    let table = document.querySelector("#contentlist")
+    let tableBody = table.children[1]
+
+    let newRow = document.createElement("tr")
+
+    for (let i = 0; i < newElements.length; i++)
+    {
+        let newCell = document.createElement("td")
+        newCell.innerText = newElements[i]
+        newRow.appendChild(newCell)
+    }
+
+    tableBody.appendChild(newRow)
+
+    CloseNewContentModal()
+}
+
 async function CloseNewContentModal()
 {
     const newContentPanel = document.querySelector("#newcontent")
@@ -196,21 +225,94 @@ async function ToggleSearchbar()
 
 function SortContent()
 {
-    switch (this.innerHTML)
+    let sortCriteria = document.querySelector("#sortcriteria").children
+
+    for (let i = 0; i < sortCriteria.length; i++) sortCriteria[i].classList.remove("selector")
+
+    this.classList.add("selector")
+
+    SortTableBy(this.textContent.toLowerCase())
+}
+
+function SortTableBy(sortCriteria)
+{
+    let table = document.querySelector("#contentlist")
+    let tableRows = table.children[1].children
+
+    let tableObject = []
+
+    for (let i = 0; i < tableRows.length - 1; i++)
     {
-        case "Name":
+        let rowData = tableRows[i].children
+
+        tableObject.push({
+            "title": rowData[0].textContent,
+            "author": rowData[1].textContent,
+            "type": rowData[2].textContent,
+            "date": rowData[3].textContent,
+            "tags": rowData[4].textContent,
+        })
+    }
+
+    let sortedTableObject = []
+
+    switch (sortCriteria)
+    {
+        case "name":
+            sortedTableObject = Utility.AlphabeticalSort(tableObject, "name")
             break
 
-        case "Author":
+        case "author":
+            sortedTableObject = Utility.AlphabeticalSort(tableObject, "author")
             break
         
-        case "Type":
+        case "type":
+            sortedTableObject = Utility.SortByType(tableObject)
             break
 
-        case "Date":
+        case "date":
+            sortedTableObject = Utility.SortByDate(tableObject)
             break
 
-        case "Tags":
+        case "tags":
+            sortedTableObject = Utility.SortByTags(tableObject)
             break
     }
 }
+
+function Search()
+{
+    let filter = this.value.toLowerCase()
+    let hiddenCount = 0
+
+    if (filter != " ")
+    {
+        let table = document.querySelector("#contentlist")
+        let tableRows = table.children[1].children
+        let noResults = document.querySelector("#noresults").parentElement
+
+        for (let i = 0; i < tableRows.length - 1; i++)
+        {
+            let row = tableRows[i]
+            let title = row.children[0].textContent.toLowerCase()
+            let author = row.children[1].textContent.toLowerCase()
+
+            if (title.includes(filter) || author.includes(filter))
+            row.classList.remove("hidden")
+            else
+            {
+                row.classList.add("hidden")
+                hiddenCount++
+            }
+
+            if (hiddenCount == tableRows.length - 1)
+            {
+                noResults.classList.remove("hidden")
+            }
+            else
+            noResults.classList.add("hidden")
+        }
+    }
+}
+
+// deselect sort criteria if clicked on and already selected

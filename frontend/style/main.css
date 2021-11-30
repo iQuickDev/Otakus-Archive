@@ -288,22 +288,23 @@ body
 #contenttable
 {
     overflow: hidden;
-    width: max-content;
+    width: 45%;
     border-radius: 10px;
-    margin: auto;
+    margin: 0 auto 0 auto;
     max-height: 70vh;
     overflow-y: auto;
 }
 
 #contentlist
 {
-    margin: auto;
+    text-align: center;
     font-size: 1.5rem;
     background: var(--window-color);
     border: 1px solid var(--box-border-color);
     border-collapse: collapse;
     border-radius: 10px;
-    height: 500px;
+    width: 100%;
+    min-height: 100px;
     max-height: 500px;
     overflow: auto;
 }
@@ -312,6 +313,8 @@ body
 {
     border: 1px solid var(--box-border-color);
     background: var(--primary-color);
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 #contentlist > tbody > tr
@@ -333,6 +336,12 @@ body
 #contentlist *
 {
     padding: 10px;
+}
+
+#noresults
+{
+    font-size: 1.5rem;
+    color: var(--text-color);
 }
 
 #footer

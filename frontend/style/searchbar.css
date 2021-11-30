@@ -113,7 +113,8 @@
 
 .selector
 {
-    text-shadow: 0px 0px 10px 10px var(--primary-color);
+    color: var(--btn-border-color);
+    text-shadow: 0px 0px 5px var(--btn-border-color);
 }
 
 /* ---------- MOBILE SEARCHBAR ---------- */
