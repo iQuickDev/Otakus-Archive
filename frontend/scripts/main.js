@@ -1,4 +1,5 @@
 import * as Utility from "./utility.js"
+import * as Sync from "./sync.js"
 
 document.querySelector("#themeicon").onclick = ToggleTheme
 document.querySelector("#settingsbtn").onclick = ToggleSettings
@@ -11,14 +12,16 @@ document.querySelector("#searchbtn").onclick = ToggleSearchbar
 document.querySelector("#searchbarinput").onkeyup = Search
 document.querySelector("#mobile-searchbarinput").onkeyup = Search
 
+CheckIfListIsEmpty()
+
 var sortCriteria = document.querySelector("#sortcriteria").children
 for (let i = 0; i < sortCriteria.length; i++) sortCriteria[i].addEventListener("click", SortContent)
-
-Initialize()
 
 var themeMode = localStorage.getItem("themeMode")
 var settingsPanelToggled = false
 var isSearchbarToggled = false
+
+Initialize()
 
 function Initialize()
 {
@@ -32,6 +35,8 @@ function Initialize()
         document.querySelector("#bgimage").value = localStorage.getItem("bgimage")
         let bgImage = localStorage.getItem("bgimage")
         document.querySelector("body").style.backgroundImage = "url(" + bgImage + ")"
+        SetTheme(localStorage.getItem("themeMode"))
+        Sync.ImportData(localStorage.getItem("tableData"))
     }
 }
 
@@ -41,6 +46,7 @@ async function ToggleTheme()
     const root = document.documentElement
 
     themeMode === "dark" ? themeMode = "light" : themeMode = "dark"
+    localStorage.setItem("themeMode", themeMode)
 
     themeIcon.classList.add("rotateout")
 
@@ -50,21 +56,11 @@ async function ToggleTheme()
 
     if (themeMode === "dark")
     {
-        themeIcon.src= "frontend/media/darkmode.png"
-        themeIcon.classList.add("themeicon-dark")
-        themeIcon.classList.remove("themeicon-light")
-        root.style.setProperty("--background-color", "#303030")
-        root.style.setProperty("--window-color", "#404040")
-        root.style.setProperty("--text-color", "#FFF")
+        SetTheme("dark")
     }
     else
     {
-        themeIcon.src= "frontend/media/lightmode.png"
-        themeIcon.classList.remove("themeicon-dark")
-        themeIcon.classList.add("themeicon-light")
-        root.style.setProperty("--background-color", "#FFF")
-        root.style.setProperty("--window-color", "#CCC")
-        root.style.setProperty("--text-color", "#000")
+        SetTheme("light")
     }
 
     themeIcon.classList.add("rotatein")
@@ -74,10 +70,35 @@ async function ToggleTheme()
     themeIcon.classList.remove("rotatein")
 }
 
+function SetTheme(mode)
+{
+    const themeIcon = document.querySelector("#themeicon")
+    const root = document.documentElement
+
+    if (mode === "dark")
+    {
+        themeIcon.src = "frontend/media/darkmode.png"
+        themeIcon.classList.add("themeicon-dark")
+        themeIcon.classList.remove("themeicon-light")
+        root.style.setProperty("--background-color", "#303030")
+        root.style.setProperty("--window-color", "#404040")
+        root.style.setProperty("--text-color", "#FFF")
+    }
+    else
+    {
+        themeIcon.src = "frontend/media/lightmode.png"
+        themeIcon.classList.remove("themeicon-dark")
+        themeIcon.classList.add("themeicon-light")
+        root.style.setProperty("--background-color", "#FFF")
+        root.style.setProperty("--window-color", "#CCC")
+        root.style.setProperty("--text-color", "#000")
+    }
+}
+
 async function ToggleSettings()
 {
     const settingsPanel = document.querySelector("#settingspanel")
-    
+
     if (!settingsPanelToggled)
     {
         settingsPanel.classList.add("slidedown")
@@ -130,7 +151,7 @@ async function AddContent()
     newContentPanel.classList.add("shownewcontentmodal")
 
     await Utility.sleep(500)
-    
+
     body.classList.remove("no-overflow")
 }
 
@@ -143,6 +164,7 @@ function SubmitNewContent()
 
     let newElements = [title, author, type, date]
 
+    let tableWrapper = document.querySelector("#contenttable")
     let table = document.querySelector("#contentlist")
     let tableBody = table.children[1]
 
@@ -155,9 +177,15 @@ function SubmitNewContent()
         newRow.appendChild(newCell)
     }
 
-    tableBody.appendChild(newRow)
+    tableBody.insertBefore(newRow, tableBody.firstChild)
 
     CloseNewContentModal()
+
+    tableWrapper.classList.remove("hidden")
+
+    console.log("tableBody in SubmitNewContent: " + tableBody)
+
+    Sync.LocalSave(Sync.ParseData())
 }
 
 async function CloseNewContentModal()
@@ -254,7 +282,7 @@ function SortTableBy(sortCriteria)
         })
     }
 
-    let sortedTableObject = []
+    var sortedTableObject = []
 
     switch (sortCriteria)
     {
@@ -265,7 +293,7 @@ function SortTableBy(sortCriteria)
         case "author":
             sortedTableObject = Utility.AlphabeticalSort(tableObject, "author")
             break
-        
+
         case "type":
             sortedTableObject = Utility.SortByType(tableObject)
             break
@@ -278,6 +306,17 @@ function SortTableBy(sortCriteria)
             sortedTableObject = Utility.SortByTags(tableObject)
             break
     }
+}
+
+function CheckIfListIsEmpty()
+{
+    let tableWrapper = document.querySelector("#contenttable")
+    let table = document.querySelector("#contentlist")
+
+    if (table.children[1].children.length > 1)
+        document.querySelector("#firsttime").classList.add("hidden")
+    else
+        tableWrapper.classList.add("hidden")
 }
 
 function Search()
@@ -298,7 +337,7 @@ function Search()
             let author = row.children[1].textContent.toLowerCase()
 
             if (title.includes(filter) || author.includes(filter))
-            row.classList.remove("hidden")
+                row.classList.remove("hidden")
             else
             {
                 row.classList.add("hidden")
@@ -310,9 +349,7 @@ function Search()
                 noResults.classList.remove("hidden")
             }
             else
-            noResults.classList.add("hidden")
+                noResults.classList.add("hidden")
         }
     }
 }
-
-// deselect sort criteria if clicked on and already selected

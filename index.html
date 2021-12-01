@@ -37,7 +37,7 @@
                 <img src="frontend/media/search.png">
             </div>
             <div id="mobile-searchbarinputwrapper">
-                <input id="mobile-searchbarinput" type="text" placeholder="Uhh, I'm looking for...">
+                <input id="mobile-searchbarinput" type="text" placeholder="Uhh, I'm looking for..." autocomplete="off">
             </div>
         </div>
 
@@ -61,11 +61,11 @@
                 <img id="closemodal" class="icon-small" src="frontend/media/plus.png">
                 <div class="newcontentparameter">
                     <h3>Title</h3>
-                    <input name="contenttitle" type="text" id="contenttitle" placeholder="Fancy Title">
+                    <input name="contenttitle" type="text" id="contenttitle" placeholder="Fancy Title" autocomplete="off">
                 </div>
                 <div class="newcontentparameter">
                     <h3>Author</h3>
-                    <input name="contentauthor" type="text" id="contentauthor" placeholder="Cute Author">
+                    <input name="contentauthor" type="text" id="contentauthor" placeholder="Cute Author" autocomplete="off">
                 </div>
                 <br>
                 <div class="newcontentparameter">
@@ -97,69 +97,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Rich Thots</td>
-                        <td>Unknown</td>
-                        <td>Manga</td>
-                        <td>10-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
-                    <tr>
-                        <td>Attack On Titan</td>
-                        <td>Unknown</td>
-                        <td>Anime</td>
-                        <td>28-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
-                    <tr>
-                        <td>Banana Fish</td>
-                        <td>Unknown</td>
-                        <td>Anime</td>
-                        <td>28-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
-                    <tr>
-                        <td>Naruto</td>
-                        <td>Unknown</td>
-                        <td>Anime</td>
-                        <td>28-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
-                    <tr>
-                        <td>My Hero Academia</td>
-                        <td>Unknown</td>
-                        <td>Anime</td>
-                        <td>28-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
-                    <tr>
-                        <td>Haikyu</td>
-                        <td>Unknown</td>
-                        <td>Anime</td>
-                        <td>28-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
-                    <tr>
-                        <td>Kakegurui</td>
-                        <td>Unknown</td>
-                        <td>Anime</td>
-                        <td>28-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
-                    <tr>
-                        <td>Kill La Kill</td>
-                        <td>Unknown</td>
-                        <td>Anime</td>
-                        <td>28-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
-                    <tr>
-                        <td>Death Note</td>
-                        <td>Unknown</td>
-                        <td>Anime</td>
-                        <td>28-11-2021</td>
-                        <td>Hentai</td>
-                    </tr>
                     <tr class="hidden"><td colspan="5" id="noresults">Nothing to show here...</td></tr>
                 </tbody>
             </table>
@@ -170,7 +107,7 @@
                 <img src="frontend/media/search.png">
             </div>
             <div id="searchbarinputwrapper">
-                <input id="searchbarinput" type="text" placeholder="Uhh, I'm looking for..." class="hidden">
+                <input id="searchbarinput" type="text" placeholder="Uhh, I'm looking for..." autocomplete="off" class="hidden">
             </div>
             <div id="sortby" class="hidden">
                 <h2>Sort<br>by</h2>
@@ -191,10 +128,8 @@
             <img id="themeicon" class="icon themeicon-dark" src="frontend/media/darkmode.png">
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
     <script type="module" src="frontend/scripts/main.js"></script>
-    <script src="frontend/scripts/sync.js"></script>
+    <script type="module" src="frontend/scripts/sync.js"></script>
 </body>
 
 </html>
