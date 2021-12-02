@@ -6,11 +6,16 @@
     --primary-color: #8000FF;
     --background-color: #303030;
     --window-color: #404040;
-    --text-color: #FFF;
+    --text-color: #FFFFFF;
     --btn-border-color: #B900FF;
-    --btn-reset-background: #FF0074;
-    --sort-selected-color: #000;
-    --box-border-color: #000;
+    --btn-red-background: #FF0074;
+    --btn-green-background: #00FF4B;
+    --btn-blue-background: #006FFF;
+    --btn-yellow-background: #FFFF00;
+    --sort-selected-color: #000000;
+    --box-border-color: #000000;
+    --subtitle-background-color: #333;
+
     font-family: 'Varela Round', sans-serif;
 }
 
@@ -97,7 +102,7 @@ body
 
 #settingspanel *
 {
-    margin: 10px;
+    margin: 10px auto 10px auto;
     display: block;
 }
 
@@ -114,7 +119,14 @@ body
     font-size: 1.2rem;
 }
 
-#bgimage
+#settingspanel h4
+{
+    margin: 0;
+    background: var(--subtitle-background-color);
+    padding: 5px;
+}
+
+#bgimageinput
 {
     background: var(--background-color);
     border-radius: 5px;
@@ -123,30 +135,7 @@ body
     width: 150px;
     padding: 5px;
     outline: none;
-}
-
-#resetsettings
-{
-    background: var(--btn-reset-background);
-    border: 2px solid var(--box-border-color);
-    border-radius: 5px;
-    width: 80px;
-    font-weight: 600;
-    font-size: 1rem;
-    font-family: 'Varela Round', sans-serif;
-    transition: transform .5s;
-    margin: auto;
-    margin-bottom: 10px;
-}
-
-#resetsettings:hover
-{
-    transform: scale(1.1);
-}
-
-#resetsettings:active
-{
-    transform: scale(0.9);
+    margin: 10px;
 }
 
 #emptylisttip h1

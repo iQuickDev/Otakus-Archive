@@ -23,10 +23,15 @@
 
         <div id="settingsbox" class="row">
             <div id="settingspanel" class="hidden">
-                <h3>Background</h3>
-                <label for="bgimageurl">Image Link</label>
-                <input name="bgimageurl" type="text" id="bgimage">
-                <button id="resetsettings" type="button">Reset</button>
+                <h3>Settings</h3>
+                <h4>Style</h4>
+                <label for="bgimageurl">Wallpaper (Link)</label>
+                <input name="bgimageurl" type="text" id="bgimageinput">
+                <button id="resetsettings" type="button" class="smallbtn btn-red">Reset</button>
+                <h4>Data</h4>
+                <button id="exportdata" type="button" class="smallbtn btn-green">Export</button>
+                <button id="importdata" type="button" class="smallbtn btn-green">Import</button>
+                <button id="purgedata" type="button" class="smallbtn btn-red">Purge</button>
             </div>
         </div>
 
@@ -101,6 +106,8 @@
                 </tbody>
             </table>
         </div>
+
+        <button id="tempadd" style="transform: translate(45vw, 5vh)">temporary add button</button>
 
         <div id="searchbar" class="row">
             <div id="searchbtn">

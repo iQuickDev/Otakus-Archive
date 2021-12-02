@@ -1,9 +1,12 @@
 import * as Utility from "./utility.js"
 import * as Sync from "./sync.js"
 
+window.Utility = Utility
+window.Sync = Sync
+
 document.querySelector("#themeicon").onclick = ToggleTheme
 document.querySelector("#settingsbtn").onclick = ToggleSettings
-document.querySelector("#bgimage").onchange = ChangeBGImage
+document.querySelector("#bgimageinput").onchange = ChangeBGImage
 document.querySelector("#resetsettings").onclick = ResetSettings
 document.querySelector("#addcontent").onclick = AddContent
 document.querySelector("#submitnewcontent").onclick = SubmitNewContent
@@ -11,6 +14,10 @@ document.querySelector("#closemodal").onclick = CloseNewContentModal
 document.querySelector("#searchbtn").onclick = ToggleSearchbar
 document.querySelector("#searchbarinput").onkeyup = Search
 document.querySelector("#mobile-searchbarinput").onkeyup = Search
+document.querySelector("#tempadd").onclick = AddContent
+
+
+Initialize()
 
 CheckIfListIsEmpty()
 
@@ -21,8 +28,6 @@ var themeMode = localStorage.getItem("themeMode")
 var settingsPanelToggled = false
 var isSearchbarToggled = false
 
-Initialize()
-
 function Initialize()
 {
     if (localStorage.getItem("initialized") === null)
@@ -32,7 +37,7 @@ function Initialize()
     }
     else
     {
-        document.querySelector("#bgimage").value = localStorage.getItem("bgimage")
+        document.querySelector("#bgimageinput").value = localStorage.getItem("bgimage")
         let bgImage = localStorage.getItem("bgimage")
         document.querySelector("body").style.backgroundImage = "url(" + bgImage + ")"
         SetTheme(localStorage.getItem("themeMode"))
@@ -120,7 +125,7 @@ async function ToggleSettings()
 
 function ChangeBGImage()
 {
-    const bgImageInput = document.querySelector("#bgimage")
+    const bgImageInput = document.querySelector("#bgimageinput")
     localStorage.setItem("bgimage", bgImageInput.value)
 
     let bgImage = localStorage.getItem("bgimage")
@@ -129,7 +134,7 @@ function ChangeBGImage()
 
 function ResetSettings()
 {
-    const bgImageInput = document.querySelector("#bgimage")
+    const bgImageInput = document.querySelector("#bgimageinput")
 
     bgImageInput.value = ""
 
@@ -308,7 +313,7 @@ function SortTableBy(sortCriteria)
     }
 }
 
-function CheckIfListIsEmpty()
+async function CheckIfListIsEmpty()
 {
     let tableWrapper = document.querySelector("#contenttable")
     let table = document.querySelector("#contentlist")

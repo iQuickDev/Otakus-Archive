@@ -7,7 +7,7 @@ export function ParseData()
     let table = document.querySelector("#contentlist")
     let tableRows = table.children[1].children
 
-    for (let i = 0; i < tableRows.length; i++)
+    for (let i = 0; i < tableRows.length - 1; i++)
     {
         data.push({
             title: tableRows[i].children[0].innerText,
@@ -30,23 +30,28 @@ export function LocalSave(data)
 export function ImportData(data)
 {
     let parsedData = JSON.parse(data)
+
     if (parsedData != null)
     {
         let tableWrapper = document.querySelector("#contenttable")
         let tableBody = document.querySelector("#contentlist").children[1]
         let tableRows = tableBody.children
+        const parametersCount = 5
         
         for (let i = 0; i < parsedData.length; i++)
         {
-            var newRow = document.createElement("tr")
-            newRow.innerHTML =
-            `<td>${parsedData[i].title}</td>
-            <td>${parsedData[i].author}</td>
-            <td>${parsedData[i].type}</td>
-            <td>${parsedData[i].date}</td>`
+            for (let j = 0; j < parametersCount; j++)
+            {
+                var newRow = document.createElement("tr")
+                newRow.innerHTML =
+                `<td>${parsedData[i].title}</td>
+                <td>${parsedData[i].author}</td>
+                <td>${parsedData[i].type}</td>
+                <td>${parsedData[i].date}</td>`
+            }
+            
+            tableBody.insertBefore(newRow, tableBody.firstChild)
         }
-
-        tableBody.appendChild(newRow, tableBody.firstChild)
 
         tableWrapper.classList.remove("hidden")
 

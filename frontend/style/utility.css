@@ -62,3 +62,62 @@
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
+.smallbtn
+{
+    border: 2px solid var(--box-border-color);
+    border-radius: 5px;
+    width: 80px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Varela Round', sans-serif;
+    transition: transform .25s;
+    margin-bottom: 10px;
+
+    display: block;
+}
+
+.smallbtn:hover
+{
+    transform: scale(1.1);
+}
+
+.smallbtn:active
+{
+    transform: scale(0.9);
+}
+
+.btn-red
+{
+    background: var(--btn-red-background);
+}
+
+.btn-green
+{
+    background: var(--btn-green-background);
+}
+
+.btn-blue
+{
+    background: var(--btn-blue-background);
+}
+
+.btn-purple
+{
+    background: var(--btn-purple-background);
+}
+
+.light-blur
+{
+    filter: blur(2px);
+}
+
+.medium-blur
+{
+    filter: blur(5px);
+}
+
+.heavy-blur
+{
+    filter: blur(10px);
+}
