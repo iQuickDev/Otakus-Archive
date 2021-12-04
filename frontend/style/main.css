@@ -15,6 +15,12 @@
     --sort-selected-color: #000000;
     --box-border-color: #000000;
     --subtitle-background-color: #333;
+    --below-all: -1;
+    --base-layer: 1;
+    --second-layer: 2;
+    --third-layer: 3;
+    --overlays: 4;
+    --above-all: 100;
 
     font-family: 'Varela Round', sans-serif;
 }
@@ -34,11 +40,6 @@ body
     background-size: cover;
 }
 
-.icon
-{
-    width: 80px;
-}
-
 #header
 {
     position: relative;
@@ -52,7 +53,7 @@ body
     border-bottom-right-radius: 15px;
     margin: 0;
     line-height: 80px;
-    z-index: 999;
+    z-index: var(--base-layer);
     border: 1px solid var(--box-border-color);
     border-top: none;
 }
@@ -145,11 +146,8 @@ body
 
 #newcontent
 {
-    position: absolute;
     width: max-content;
     text-align: center;
-    left: 0;
-    right: 0;
     margin: auto;
     border: 1px solid var(--box-border-color);
     border-radius: 10px;
@@ -185,12 +183,6 @@ body
     transform: scale(1.1);
 }
 
-.icon-small
-{
-    width: 25px;
-    height: 25px;
-}
-
 .newcontentparameter
 {
     display: inline-block;
@@ -209,7 +201,7 @@ body
     font-family: 'Varela Round', sans-serif;
 }
 
-#addcontent
+#firsttimeaddcontent
 {
     margin: auto;
     width: 150px;
@@ -220,13 +212,13 @@ body
     transition: .3s;
 }
 
-#addcontent:hover
+#firsttimeaddcontent:hover
 {
     box-shadow: var(--btn-border-color) 0px 0px 20px 5px;
     transform: scale(1.1);
 }
 
-#addcontent img
+#firsttimeaddcontent img
 {
     vertical-align: middle;
     margin: auto;
@@ -334,13 +326,62 @@ body
 {
     font-size: 1.5rem;
     color: var(--text-color);
+    pointer-events: none;
 }
 
-#footer
+#buttonspanel
+{
+    padding: 10px;
+    width: max-content;
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+    border-radius: 30px;
+    border: 1px solid gray;
+    background: #0002;
+}
+
+#buttonspanel button
+{
+    display: inline;
+    margin: 10px 20px 10px 20px;
+    width: 75px;
+    height: 75px;
+    border-radius: 25%;
+    border: 3px solid var(--btn-border-color);
+    transition: .3s;
+    vertical-align: middle;
+    z-index: var(--above-all);
+}
+
+#buttonspanel button:hover
+{
+    box-shadow: var(--btn-border-color) 0px 0px 10px 2px;
+    transform: scale(1.1);
+}
+
+#addcontent
+{
+    background: var(--primary-color);
+}
+
+#removecontent
+{
+    background: var(--primary-color);
+}
+
+#addcontent img
+{
+    vertical-align: middle;
+    margin: auto;
+}
+
+#themeiconwrapper
 {
     position: fixed;
+    right: 0;
     bottom: 0;
-    width: 100%;
+    width: max-content;
 }
 
 #themeicon

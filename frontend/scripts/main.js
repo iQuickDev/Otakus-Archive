@@ -1,21 +1,26 @@
 import * as Utility from "./utility.js"
 import * as Sync from "./sync.js"
+import * as UI from "./ui.js"
 
 window.Utility = Utility
 window.Sync = Sync
+window.UI = UI
 
 document.querySelector("#themeicon").onclick = ToggleTheme
-document.querySelector("#settingsbtn").onclick = ToggleSettings
-document.querySelector("#bgimageinput").onchange = ChangeBGImage
-document.querySelector("#resetsettings").onclick = ResetSettings
-document.querySelector("#addcontent").onclick = AddContent
+document.querySelector("#settingsbtn").onclick = UI.ToggleSettings
+document.querySelector("#bgimageinput").onchange = UI.ChangeBGImage
+document.querySelector("#resetsettings").onclick = UI.ResetBGImage
+document.querySelector("#firsttimeaddcontent").onclick = UI.AddContent
+document.querySelector("#addcontent").onclick = UI.AddContent
+document.querySelector("#removecontent").onclick = RemoveContent
 document.querySelector("#submitnewcontent").onclick = SubmitNewContent
-document.querySelector("#closemodal").onclick = CloseNewContentModal
-document.querySelector("#searchbtn").onclick = ToggleSearchbar
+document.querySelector("#closemodal").onclick = UI.CloseNewContentModal
+document.querySelector("#searchbtn").onclick = UI.ToggleSearchbar
 document.querySelector("#searchbarinput").onkeyup = Search
 document.querySelector("#mobile-searchbarinput").onkeyup = Search
-document.querySelector("#tempadd").onclick = AddContent
-
+document.querySelector("#importdata").onclick = Import
+document.querySelector("#exportdata").onclick = Export
+document.querySelector("#purgedata").onclick = Purge
 
 Initialize()
 
@@ -25,8 +30,7 @@ var sortCriteria = document.querySelector("#sortcriteria").children
 for (let i = 0; i < sortCriteria.length; i++) sortCriteria[i].addEventListener("click", SortContent)
 
 var themeMode = localStorage.getItem("themeMode")
-var settingsPanelToggled = false
-var isSearchbarToggled = false
+var isRemoving = false
 
 function Initialize()
 {
@@ -39,8 +43,8 @@ function Initialize()
     {
         document.querySelector("#bgimageinput").value = localStorage.getItem("bgimage")
         let bgImage = localStorage.getItem("bgimage")
-        document.querySelector("body").style.backgroundImage = "url(" + bgImage + ")"
-        SetTheme(localStorage.getItem("themeMode"))
+        document.querySelector("body").style.backgroundImage = `url(${bgImage})`
+        UI.SetTheme(localStorage.getItem("themeMode"))
         Sync.ImportData(localStorage.getItem("tableData"))
     }
 }
@@ -48,7 +52,6 @@ function Initialize()
 async function ToggleTheme()
 {
     const themeIcon = document.querySelector("#themeicon")
-    const root = document.documentElement
 
     themeMode === "dark" ? themeMode = "light" : themeMode = "dark"
     localStorage.setItem("themeMode", themeMode)
@@ -61,11 +64,11 @@ async function ToggleTheme()
 
     if (themeMode === "dark")
     {
-        SetTheme("dark")
+        UI.SetTheme("dark")
     }
     else
     {
-        SetTheme("light")
+        UI.SetTheme("light")
     }
 
     themeIcon.classList.add("rotatein")
@@ -75,89 +78,37 @@ async function ToggleTheme()
     themeIcon.classList.remove("rotatein")
 }
 
-function SetTheme(mode)
+function RemoveContent()
 {
-    const themeIcon = document.querySelector("#themeicon")
-    const root = document.documentElement
+    let table = document.querySelector("#contenttable")
+    let tableRows = table.querySelectorAll("tr")
+    let removeBtn = document.querySelector("#removecontent")
 
-    if (mode === "dark")
+    isRemoving = !isRemoving
+
+    isRemoving ? removeBtn.classList.add("btn-active") : removeBtn.classList.remove("btn-active")
+
+    for (let i = 0; i < tableRows.length - 1; i++)
     {
-        themeIcon.src = "frontend/media/darkmode.png"
-        themeIcon.classList.add("themeicon-dark")
-        themeIcon.classList.remove("themeicon-light")
-        root.style.setProperty("--background-color", "#303030")
-        root.style.setProperty("--window-color", "#404040")
-        root.style.setProperty("--text-color", "#FFF")
+        if (isRemoving)
+        {
+            tableRows[i].classList.add("remove-hover")
+        }
+        else
+        {
+            tableRows[i].classList.remove("remove-hover")
+        }
+
+        tableRows[i].addEventListener("click", () =>
+        {
+            if (isRemoving)
+            {
+                tableRows[i].remove()
+                Sync.LocalSave(Sync.ParseData())
+                CheckIfListIsEmpty()
+            }
+        })
     }
-    else
-    {
-        themeIcon.src = "frontend/media/lightmode.png"
-        themeIcon.classList.remove("themeicon-dark")
-        themeIcon.classList.add("themeicon-light")
-        root.style.setProperty("--background-color", "#FFF")
-        root.style.setProperty("--window-color", "#CCC")
-        root.style.setProperty("--text-color", "#000")
-    }
-}
-
-async function ToggleSettings()
-{
-    const settingsPanel = document.querySelector("#settingspanel")
-
-    if (!settingsPanelToggled)
-    {
-        settingsPanel.classList.add("slidedown")
-        settingsPanel.classList.remove("hidden")
-    }
-    else
-    {
-        settingsPanel.classList.remove("slidedown")
-        settingsPanel.classList.add("slideup")
-
-        await Utility.sleep(500)
-
-        settingsPanel.classList.add("hidden")
-        settingsPanel.classList.remove("slideup")
-    }
-
-    settingsPanelToggled = !settingsPanelToggled
-}
-
-function ChangeBGImage()
-{
-    const bgImageInput = document.querySelector("#bgimageinput")
-    localStorage.setItem("bgimage", bgImageInput.value)
-
-    let bgImage = localStorage.getItem("bgimage")
-    document.querySelector("body").style.backgroundImage = "url(" + bgImage + ")"
-}
-
-function ResetSettings()
-{
-    const bgImageInput = document.querySelector("#bgimageinput")
-
-    bgImageInput.value = ""
-
-    localStorage.setItem("bgimage", "")
-
-    document.querySelector("body").style.background = bgImageInput.value
-}
-
-async function AddContent()
-{
-    const newContentPanel = document.querySelector("#newcontent")
-    const firstTimePanel = document.querySelector("#firsttime")
-    const body = document.querySelector("body")
-
-    body.classList.add("no-overflow")
-
-    firstTimePanel.classList.add("hidden")
-    newContentPanel.classList.remove("hidden")
-    newContentPanel.classList.add("shownewcontentmodal")
-
-    await Utility.sleep(500)
-
-    body.classList.remove("no-overflow")
 }
 
 function SubmitNewContent()
@@ -166,6 +117,22 @@ function SubmitNewContent()
     let author = document.querySelector("#contentauthor").value
     let type = document.querySelector("#contenttype").value
     let date = document.querySelector("#contentdate").value
+    let inputs = document.querySelectorAll("#newcontent input")
+
+    if (title === "")
+    {
+        return
+    }
+
+    if (author === "")
+    {
+        author = "Unknown"
+    }
+
+    if (date === "")
+    {
+        date = "Unknown"
+    }
 
     let newElements = [title, author, type, date]
 
@@ -184,76 +151,15 @@ function SubmitNewContent()
 
     tableBody.insertBefore(newRow, tableBody.firstChild)
 
-    CloseNewContentModal()
+    UI.CloseNewContentModal()
 
     tableWrapper.classList.remove("hidden")
 
-    console.log("tableBody in SubmitNewContent: " + tableBody)
-
     Sync.LocalSave(Sync.ParseData())
-}
 
-async function CloseNewContentModal()
-{
-    const newContentPanel = document.querySelector("#newcontent")
-    const body = document.querySelector("body")
+    CheckIfListIsEmpty()
 
-    body.classList.add("no-overflow")
-
-    newContentPanel.classList.remove("shownewcontentmodal")
-    newContentPanel.classList.add("hidenewcontentmodal")
-
-    await Utility.sleep(500)
-
-    newContentPanel.classList.add("hidden")
-    newContentPanel.classList.remove("hidenewcontentmodal")
-    body.classList.remove("no-overflow")
-}
-
-async function ToggleSearchbar()
-{
-    const searchBtn = document.querySelector("#searchbtn")
-    const searchBarInput = document.querySelector("#searchbarinput")
-    const sortBar = document.querySelector("#sortbar")
-    const sortBy = document.querySelector("#sortby")
-
-    if (isSearchbarToggled)
-    {
-        searchBarInput.classList.add("searchbarhide")
-        sortBar.classList.add("sortbarhide")
-        sortBy.classList.add("sortbyhide")
-
-        await Utility.sleep(1000)
-
-        searchBarInput.classList.remove("searchbarhide")
-        sortBar.classList.remove("sortbarhide")
-        sortBy.classList.remove("sortbyhide")
-
-        searchBarInput.classList.add("hidden")
-        sortBar.classList.add("hidden")
-        sortBy.classList.add("hidden")
-    }
-    else
-    {
-        searchBarInput.classList.remove("hidden")
-        sortBar.classList.remove("hidden")
-
-        searchBarInput.classList.add("searchbarshow")
-        sortBar.classList.add("sortbarshow")
-
-        await Utility.sleep(500)
-
-        sortBy.classList.remove("hidden")
-        sortBy.classList.add("sortbyshow")
-
-        await Utility.sleep(500)
-
-        searchBarInput.classList.remove("searchbarshow")
-        sortBar.classList.remove("sortbarshow")
-        sortBy.classList.remove("sortbyshow")
-    }
-
-    isSearchbarToggled = !isSearchbarToggled
+    inputs.forEach(input => input.value = "")
 }
 
 function SortContent()
@@ -317,11 +223,20 @@ async function CheckIfListIsEmpty()
 {
     let tableWrapper = document.querySelector("#contenttable")
     let table = document.querySelector("#contentlist")
+    let buttonsPanel = document.querySelector("#buttonspanel")
 
     if (table.children[1].children.length > 1)
+    {
         document.querySelector("#firsttime").classList.add("hidden")
+        tableWrapper.classList.remove("hidden")
+        buttonsPanel.classList.remove("hidden")
+    }
     else
+    {
+        document.querySelector("#firsttime").classList.remove("hidden")
         tableWrapper.classList.add("hidden")
+        buttonsPanel.classList.add("hidden")
+    }
 }
 
 function Search()
@@ -357,4 +272,30 @@ function Search()
                 noResults.classList.add("hidden")
         }
     }
+}
+
+function Import()
+{
+    let uploader = document.querySelector("#uploader")
+    let newData = []
+    uploader.click()
+    uploader.onchange = async () =>
+    {
+        newData = uploader.files[0]
+        let content = await newData.text()
+        console.log(content)
+        localStorage.setItem("tableData", content)
+        location.reload()
+    }
+}
+
+function Export()
+{
+    Sync.ExportData(localStorage.getItem("tableData"))
+}
+
+function Purge()
+{
+    Sync.PurgeData()
+    location.reload()
 }

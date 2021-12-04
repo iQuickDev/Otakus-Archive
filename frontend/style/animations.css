@@ -142,12 +142,12 @@
 
 .searchbarshow
 {
-  animation: searchbarshow 1s linear forwards;
+  animation: searchbarshow .5s linear forwards;
 }
 
 .sortbarshow
 {
-  animation: sortbarshow 1s linear forwards;
+  animation: sortbarshow .5s linear forwards;
 }
 
 .sortbyshow
@@ -157,12 +157,12 @@
 
 .searchbarhide
 {
-  animation: searchbarshow 1s linear reverse forwards;
+  animation: searchbarshow .5s linear reverse forwards;
 }
 
 .sortbarhide
 {
-  animation: sortbarshow 1s linear reverse forwards;
+  animation: sortbarshow .5s linear reverse forwards;
 }
 
 .sortbyhide

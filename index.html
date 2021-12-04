@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="frontend/style/bootstrap-grid.css">
     <link rel="stylesheet" href="frontend/style/animations.css">
-    <link rel="stylesheet" href="frontend/style/utility.css">
     <link rel="stylesheet" href="frontend/style/searchbar.css">
+    <link rel="stylesheet" href="frontend/style/utility.css">
     <link rel="stylesheet" href="frontend/style/main.css">
     <title>Otaku's Archives</title>
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div id="pagecontent" class="container-fluid">
         <div id="header" class="row">
             <img id="headerimg" class="icon" src="frontend/media/cutesushi.png">
             <h1 id="title">Otaku's Archives</h1>
@@ -55,38 +55,42 @@
 
             <div class="spacer-1"></div>
 
-            <div id="addbtn" class="row">
-                <button id="addcontent"><img class="icon" src="frontend/media/plus.png"></button>
+            <div id="firsttimeaddbtn" class="row">
+                <button id="firsttimeaddcontent"><img class="icon" src="frontend/media/plus.png"></button>
             </div>
         </div>
 
-        <div id="newcontent" class="hidden">
-            <div id="newcontentpanel">
-                <h2 id="newcontenttitle">Information</h2>
-                <img id="closemodal" class="icon-small" src="frontend/media/plus.png">
-                <div class="newcontentparameter">
-                    <h3>Title</h3>
-                    <input name="contenttitle" type="text" id="contenttitle" placeholder="Fancy Title" autocomplete="off">
+        <div class="hidden darken-background">
+            <div id="newcontent" class="hidden">
+                <div id="newcontentpanel">
+                    <h2 id="newcontenttitle">Information</h2>
+                    <img id="closemodal" class="icon-small" src="frontend/media/plus.png">
+                    <div class="newcontentparameter">
+                        <h3>Title</h3>
+                        <input name="contenttitle" type="text" id="contenttitle" placeholder="Fancy Title"
+                            autocomplete="off">
+                    </div>
+                    <div class="newcontentparameter">
+                        <h3>Author</h3>
+                        <input name="contentauthor" type="text" id="contentauthor" placeholder="Cute Author"
+                            autocomplete="off">
+                    </div>
+                    <br>
+                    <div class="newcontentparameter">
+                        <h3>Type</h3>
+                        <select id="contenttype">
+                            <option value="Anime">Anime</option>
+                            <option value="Manga">Manga</option>
+                        </select>
+                    </div>
+                    <div class="newcontentparameter">
+                        <h3>Date</h3>
+                        <input name="contentdate" type="date" id="contentdate" pattern="\d{2}-\d{2}-\d{4}">
+                    </div>
+                    <h3>Tags</h3>
+                    <button id="addtags"><img class="icon-small" src="frontend/media/plus.png"></button>
+                    <button id="submitnewcontent" type="button">Submit</button>
                 </div>
-                <div class="newcontentparameter">
-                    <h3>Author</h3>
-                    <input name="contentauthor" type="text" id="contentauthor" placeholder="Cute Author" autocomplete="off">
-                </div>
-                <br>
-                <div class="newcontentparameter">
-                    <h3>Type</h3>
-                    <select id="contenttype">
-                        <option value="Anime">Anime</option>
-                        <option value="Manga">Manga</option>
-                    </select>
-                </div>
-                <div class="newcontentparameter">
-                    <h3>Date</h3>
-                    <input name="contentdate" type="date" id="contentdate">
-                </div>
-                <h3>Tags</h3>
-                <button id="addtags"><img class="icon-small" src="frontend/media/plus.png"></button>
-                <button id="submitnewcontent" type="button">Submit</button>
             </div>
         </div>
 
@@ -102,19 +106,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="hidden"><td colspan="5" id="noresults">Nothing to show here...</td></tr>
+                    <tr class="hidden">
+                        <td colspan="5" id="noresults">Nothing to show here...</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
-        <button id="tempadd" style="transform: translate(45vw, 5vh)">temporary add button</button>
+        <div id="buttonspanel" class="hidden">
+            <button id="addcontent"><img class="icon-medium" src="frontend/media/plus.png"></button>
+            <button id="removecontent"><img class="icon-medium" src="frontend/media/trash.png"></button>
+        </div>
 
         <div id="searchbar" class="row">
             <div id="searchbtn">
                 <img src="frontend/media/search.png">
             </div>
             <div id="searchbarinputwrapper">
-                <input id="searchbarinput" type="text" placeholder="Uhh, I'm looking for..." autocomplete="off" class="hidden">
+                <input id="searchbarinput" type="text" placeholder="Uhh, I'm looking for..." autocomplete="off"
+                    class="hidden">
             </div>
             <div id="sortby" class="hidden">
                 <h2>Sort<br>by</h2>
@@ -131,10 +141,12 @@
             </div>
         </div>
 
-        <div id="footer" class="row">
+        <div id="themeiconwrapper">
             <img id="themeicon" class="icon themeicon-dark" src="frontend/media/darkmode.png">
         </div>
     </div>
+    <input id="uploader" type="file" class="hidden" accept=".json">
+    <a id="downloader" class="hidden"></a>
     <script type="module" src="frontend/scripts/main.js"></script>
     <script type="module" src="frontend/scripts/sync.js"></script>
 </body>

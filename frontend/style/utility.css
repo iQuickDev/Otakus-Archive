@@ -2,7 +2,7 @@
 
 .hidden
 {
-    display: none;
+    display: none !important;
 }
 
 .no-overflow
@@ -73,7 +73,6 @@
     font-family: 'Varela Round', sans-serif;
     transition: transform .25s;
     margin-bottom: 10px;
-
     display: block;
 }
 
@@ -120,4 +119,45 @@
 .heavy-blur
 {
     filter: blur(10px);
+}
+
+.darken-background
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000A;
+    display: grid;
+    z-index: var(--overlays);
+}
+
+.icon-small
+{
+    width: 25px;
+    height: 25px;
+}
+
+.icon-medium
+{
+    width: 50px;
+    height: 50px;
+}
+
+.icon
+{
+    width: 80px;
+}
+
+.btn-active
+{
+    box-shadow: var(--btn-border-color) 0px 0px 10px 2px;
+}
+
+.remove-hover:hover
+{
+    color: var(--btn-red-background);
+    transition: .25s;
+    cursor: no-drop;
 }

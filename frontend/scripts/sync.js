@@ -17,8 +17,6 @@ export function ParseData()
         })
     }
 
-    console.log("Parsed data: " + data)
-
     return data
 }
 
@@ -35,7 +33,6 @@ export function ImportData(data)
     {
         let tableWrapper = document.querySelector("#contenttable")
         let tableBody = document.querySelector("#contentlist").children[1]
-        let tableRows = tableBody.children
         const parametersCount = 5
         
         for (let i = 0; i < parsedData.length; i++)
@@ -54,9 +51,21 @@ export function ImportData(data)
         }
 
         tableWrapper.classList.remove("hidden")
-
-        console.log("Imported data: " + tableRows)
     }
 }
 
+export function ExportData(data)
+{
+    let parsedData = JSON.parse(data)
+    let downloader = document.querySelector("#downloader")
+    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(parsedData));
 
+    downloader.setAttribute("href", dataStr)
+    downloader.setAttribute("download", "archive.json")
+    downloader.click()
+}
+
+export function PurgeData()
+{
+    localStorage.removeItem("tableData")
+}

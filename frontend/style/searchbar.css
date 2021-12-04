@@ -11,7 +11,7 @@
     left: 25px;
     bottom: 25px;
     transition: transform .5s;
-    z-index: 9999;
+    z-index: var(--third-layer);
 }
 
 #searchbar img
@@ -34,7 +34,7 @@
     position: absolute;
     left: 25px;
     bottom: 25px;
-    z-index: 999;
+    z-index: var(--second-layer);
 }
 
 #searchbarinput
@@ -60,7 +60,7 @@
     height: 500px;
     left: 25px;
     bottom: 25px;
-    z-index: 999;
+    z-index: var(--second-layer);
     background: var(--window-color);
     overflow: hidden;
 }
@@ -77,7 +77,7 @@
     position: absolute;
     bottom: 425px;
     left: 25px;
-    z-index: 9999;
+    z-index: var(--third-layer);
 }
 
 #sortby h3
@@ -128,7 +128,7 @@
     border-radius: 50%;
     background: var(--primary-color);
     transition: transform .5s;
-    z-index: 9999;
+    z-index: var(--third-layer);
 }
 
 #mobile-searchbar img
