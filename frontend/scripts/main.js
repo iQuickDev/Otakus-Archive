@@ -80,15 +80,16 @@ async function ToggleTheme()
 
 function RemoveContent()
 {
-    let table = document.querySelector("#contenttable")
-    let tableRows = table.querySelectorAll("tr")
+    const table = document.querySelector("#contentlist")
+    const tableRows = table.children[1].querySelectorAll("tr:not(.excluded)")
+
     let removeBtn = document.querySelector("#removecontent")
 
     isRemoving = !isRemoving
 
     isRemoving ? removeBtn.classList.add("btn-active") : removeBtn.classList.remove("btn-active")
 
-    for (let i = 0; i < tableRows.length - 1; i++)
+    for (let i = 0; i < tableRows.length; i++)
     {
         if (isRemoving)
         {
@@ -113,10 +114,13 @@ function RemoveContent()
 
 function SubmitNewContent()
 {
+    const table = document.querySelector("#contentlist")
+
     let title = document.querySelector("#contenttitle").value
     let author = document.querySelector("#contentauthor").value
     let type = document.querySelector("#contenttype").value
     let date = document.querySelector("#contentdate").value
+    let tags = "test"
     let inputs = document.querySelectorAll("#newcontent input")
 
     if (title === "")
@@ -134,10 +138,10 @@ function SubmitNewContent()
         date = "Unknown"
     }
 
-    let newElements = [title, author, type, date]
+    let newElements = [title, author, type, date, tags]
 
     let tableWrapper = document.querySelector("#contenttable")
-    let table = document.querySelector("#contentlist")
+
     let tableBody = table.children[1]
 
     let newRow = document.createElement("tr")
@@ -175,57 +179,49 @@ function SortContent()
 
 function SortTableBy(sortCriteria)
 {
-    let table = document.querySelector("#contentlist")
-    let tableRows = table.children[1].children
-
-    let tableObject = []
-
-    for (let i = 0; i < tableRows.length - 1; i++)
-    {
-        let rowData = tableRows[i].children
-
-        tableObject.push({
-            "title": rowData[0].textContent,
-            "author": rowData[1].textContent,
-            "type": rowData[2].textContent,
-            "date": rowData[3].textContent,
-            "tags": rowData[4].textContent,
-        })
-    }
+    let tableObject = JSON.parse(localStorage.getItem("tableData"))
 
     var sortedTableObject = []
 
     switch (sortCriteria)
     {
-        case "name":
-            sortedTableObject = Utility.AlphabeticalSort(tableObject, "name")
+        case "title":
+            sortedTableObject = Utility.AlphabeticalSort(tableObject, sortCriteria)
             break
 
         case "author":
-            sortedTableObject = Utility.AlphabeticalSort(tableObject, "author")
+            sortedTableObject = Utility.AlphabeticalSort(tableObject, sortCriteria)
             break
 
         case "type":
-            sortedTableObject = Utility.SortByType(tableObject)
+            sortedTableObject = Utility.AlphabeticalSort(tableObject, sortCriteria)
             break
 
         case "date":
-            sortedTableObject = Utility.SortByDate(tableObject)
+            return alert("Not yet implemented")
+            //sortedTableObject = Utility.SortByDate(tableObject)
             break
 
         case "tags":
-            sortedTableObject = Utility.SortByTags(tableObject)
+            return alert("Not yet implemented")
+            //sortedTableObject = Utility.SortByTags(tableObject, tags)
             break
     }
+
+    Sync.LocalSave(sortedTableObject)
+    Sync.ImportData(JSON.stringify(sortedTableObject))
 }
 
 async function CheckIfListIsEmpty()
 {
+    const table = document.querySelector("#contentlist")
+    const tableRows = table.children[1].querySelectorAll("tr:not(.excluded)")
+    
     let tableWrapper = document.querySelector("#contenttable")
-    let table = document.querySelector("#contentlist")
+
     let buttonsPanel = document.querySelector("#buttonspanel")
 
-    if (table.children[1].children.length > 1)
+    if (tableRows.length > 0)
     {
         document.querySelector("#firsttime").classList.add("hidden")
         tableWrapper.classList.remove("hidden")
@@ -241,16 +237,17 @@ async function CheckIfListIsEmpty()
 
 function Search()
 {
+    const table = document.querySelector("#contentlist")
+    const tableRows = table.children[1].querySelectorAll("tr:not(.excluded)")
+
     let filter = this.value.toLowerCase()
     let hiddenCount = 0
 
     if (filter != " ")
     {
-        let table = document.querySelector("#contentlist")
-        let tableRows = table.children[1].children
         let noResults = document.querySelector("#noresults").parentElement
 
-        for (let i = 0; i < tableRows.length - 1; i++)
+        for (let i = 0; i < tableRows.length; i++)
         {
             let row = tableRows[i]
             let title = row.children[0].textContent.toLowerCase()
@@ -264,7 +261,7 @@ function Search()
                 hiddenCount++
             }
 
-            if (hiddenCount == tableRows.length - 1)
+            if (hiddenCount == tableRows.length)
             {
                 noResults.classList.remove("hidden")
             }
@@ -278,12 +275,12 @@ function Import()
 {
     let uploader = document.querySelector("#uploader")
     let newData = []
+
     uploader.click()
     uploader.onchange = async () =>
     {
         newData = uploader.files[0]
         let content = await newData.text()
-        console.log(content)
         localStorage.setItem("tableData", content)
         location.reload()
     }

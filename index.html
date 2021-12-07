@@ -89,6 +89,16 @@
                     </div>
                     <h3>Tags</h3>
                     <button id="addtags"><img class="icon-small" src="frontend/media/plus.png"></button>
+                    <div id="tagspanel">
+                        <h4 class="tag">Hentai</h4>
+                        <h4 class="tag">Drama</h4>
+                        <h4 class="tag">Shonen</h4>
+                        <h4 class="tag">Shoujo</h4>
+                        <h4 class="tag">Ecchi</h4>
+                        <h4 class="tag">Harem</h4>
+                        <h4 class="tag">Isekai</h4>
+                        <h4 id="customtag" class="tag">Custom</h4>
+                    </div>
                     <button id="submitnewcontent" type="button">Submit</button>
                 </div>
             </div>
@@ -106,8 +116,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="hidden">
-                        <td colspan="5" id="noresults">Nothing to show here...</td>
+                    <tr class="excluded hidden">
+                    <td colspan="5" id="noresults">Nothing to show here...</td>
                     </tr>
                 </tbody>
             </table>
@@ -132,7 +142,7 @@
             <div id="sortbar" class="hidden">
                 <div id="selector">&nbsp;</div>
                 <ul id="sortcriteria">
-                    <li>Name</li>
+                    <li>Title</li>
                     <li>Author</li>
                     <li>Type</li>
                     <li>Date</li>

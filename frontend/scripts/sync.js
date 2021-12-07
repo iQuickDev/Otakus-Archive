@@ -1,19 +1,20 @@
-// todo: server sync
+import * as Utility from "./utility.js"
 
 export function ParseData()
 {
     let data = []
 
-    let table = document.querySelector("#contentlist")
-    let tableRows = table.children[1].children
+    const table = document.querySelector("#contentlist")
+    const tableRows = table.children[1].querySelectorAll("tr:not(.excluded)")
 
-    for (let i = 0; i < tableRows.length - 1; i++)
+    for (let i = 0; i < tableRows.length ; i++)
     {
-        data.push({
+        data.unshift({
             title: tableRows[i].children[0].innerText,
             author: tableRows[i].children[1].innerText,
             type: tableRows[i].children[2].innerText,
             date: tableRows[i].children[3].innerText,
+            tags: tableRows[i].children[4].innerText,
         })
     }
 
@@ -35,6 +36,8 @@ export function ImportData(data)
         let tableBody = document.querySelector("#contentlist").children[1]
         const parametersCount = 5
         
+        Utility.ClearTable()
+
         for (let i = 0; i < parsedData.length; i++)
         {
             for (let j = 0; j < parametersCount; j++)
@@ -44,10 +47,10 @@ export function ImportData(data)
                 `<td>${parsedData[i].title}</td>
                 <td>${parsedData[i].author}</td>
                 <td>${parsedData[i].type}</td>
-                <td>${parsedData[i].date}</td>`
+                <td>${parsedData[i].date}</td>
+                <td>${parsedData[i].tags}</td>`
             }
-            
-            tableBody.insertBefore(newRow, tableBody.firstChild)
+            tableBody.appendChild(newRow)
         }
 
         tableWrapper.classList.remove("hidden")
@@ -69,3 +72,5 @@ export function PurgeData()
 {
     localStorage.removeItem("tableData")
 }
+
+// todo: server sync

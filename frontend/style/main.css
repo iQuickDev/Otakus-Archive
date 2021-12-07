@@ -245,6 +245,42 @@ body
     transform: scale(1.2) rotate(45deg);
 }
 
+#tagspanel::-webkit-scrollbar-track
+{
+    background: var(--window-color);
+    border: none;
+}
+
+#tagspanel
+{
+    margin: auto;
+    width: 400px;
+    height: 100px;
+    overflow-y: scroll;
+}
+
+.tag
+{
+    display: inline-block;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    transition: transform .25s;
+}
+
+.tag:hover
+{
+    transform: scale(1.1);
+}
+
+#customtag
+{
+    background: linear-gradient(45deg, #FF0074, #B900FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 #submitnewcontent
 {
     background: var(--primary-color);
