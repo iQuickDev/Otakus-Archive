@@ -169,3 +169,20 @@
 {
   animation: sortbyshow .5s linear reverse forwards;
 }
+
+@keyframes sortdatemodeshow
+{
+  0% {transform: translateY(500px); opacity: 0;}
+  70% {transform: scale(1.1); opacity: 1;}
+  100% {transform: translateY(0px); opacity: 1;}
+}
+
+.sortdatemodeshow
+{
+  animation: sortdatemodeshow .5s linear forwards;
+}
+
+.sortdatemodehide
+{
+  animation: sortdatemodeshow .5s linear reverse forwards;
+}

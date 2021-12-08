@@ -117,6 +117,53 @@
     text-shadow: 0px 0px 5px var(--btn-border-color);
 }
 
+#datemodemodal
+{
+    position: absolute;
+    left: 150px;
+    bottom: 150px;
+    background: var(--window-color);
+    border-radius: 10px;
+    border: 2px solid var(--btn-border-color);
+    text-align: center;
+    max-height: 140px;
+    overflow: hidden;
+    transition: .5s;
+}
+
+#datemodemodal h2
+{
+    margin: auto;
+    background: var(--background-color);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 1.5rem;
+    padding: 2px;
+}
+
+#datemodemodal h3
+{
+    font-weight: normal;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#datemodemodal input
+{
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--box-border-color);
+    background: var(--background-color);
+    color: var(--text-color);
+    padding: 5px;
+    outline: none;
+}
+
+.datemodemodalextended
+{
+    max-height: 300px !important;
+}
+
 /* ---------- MOBILE SEARCHBAR ---------- */
 
 #mobile-searchbtn

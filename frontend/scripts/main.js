@@ -16,6 +16,8 @@ document.querySelector("#removecontent").onclick = RemoveContent
 document.querySelector("#submitnewcontent").onclick = SubmitNewContent
 document.querySelector("#closemodal").onclick = UI.CloseNewContentModal
 document.querySelector("#searchbtn").onclick = UI.ToggleSearchbar
+document.querySelector("#sortcriteria").children[3].onclick = UI.ToggleDateModeModal // date sort menu
+document.querySelector("#sortbyrange").onclick = UI.ToggleRangeMenu
 document.querySelector("#searchbarinput").onkeyup = Search
 document.querySelector("#mobile-searchbarinput").onkeyup = Search
 document.querySelector("#importdata").onclick = Import
@@ -28,6 +30,8 @@ CheckIfListIsEmpty()
 
 var sortCriteria = document.querySelector("#sortcriteria").children
 for (let i = 0; i < sortCriteria.length; i++) sortCriteria[i].addEventListener("click", SortContent)
+var sortDateMode = document.querySelector("#datemodemodal").querySelectorAll("h3")
+for (let i = 0; i < sortDateMode.length; i++) sortDateMode[i].addEventListener("click", SwitchDateSortMode)
 
 var themeMode = localStorage.getItem("themeMode")
 var isRemoving = false
@@ -177,7 +181,7 @@ function SortContent()
     SortTableBy(this.textContent.toLowerCase())
 }
 
-function SortTableBy(sortCriteria, sortMode)
+function SortTableBy(sortCriteria, sortMode, rangeStart, rangeEnd)
 {
     let tableObject = JSON.parse(localStorage.getItem("tableData"))
 
@@ -192,7 +196,7 @@ function SortTableBy(sortCriteria, sortMode)
         case "author":
             sortedTableObject = Utility.AlphabeticalSort(tableObject, sortCriteria)
             break
-
+   
         case "type":
             sortedTableObject = Utility.AlphabeticalSort(tableObject, sortCriteria)
             break
@@ -203,12 +207,31 @@ function SortTableBy(sortCriteria, sortMode)
 
         case "tags":
             return alert("Not yet implemented")
-            //sortedTableObject = Utility.SortByTags(tableObject, tags)
-            break
     }
 
     Sync.LocalSave(sortedTableObject)
     Sync.ImportData(JSON.stringify(sortedTableObject))
+}
+
+function SwitchDateSortMode()
+{
+    for (let i = 0; i < sortDateMode.length; i++)
+    {
+        sortDateMode[i].classList.remove("selector")
+    }
+
+    this.classList.add("selector")
+
+    let rangeStart = document.querySelector("#rangestart").value
+    let rangeEnd = document.querySelector("#rangeend").value
+
+    if (this.innerText != "range")
+    {
+        rangeStart = 0
+        rangeEnd = 0
+    }
+
+    SortTableBy("date", this.innerText.toLowerCase(), rangeStart, rangeEnd)
 }
 
 async function CheckIfListIsEmpty()

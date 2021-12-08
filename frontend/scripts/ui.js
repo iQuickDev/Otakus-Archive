@@ -1,5 +1,7 @@
 var isSettingsPanelToggled = false
 var isSearchbarToggled = false
+var isDateModeModalToggled = false
+var isRangeMenuToggled = false
 
 export async function ToggleSettings()
 {
@@ -114,6 +116,9 @@ export async function ToggleSearchbar()
 
     if (isSearchbarToggled)
     {
+        if (isDateModeModalToggled)
+        ToggleDateModeModal()
+
         searchBarInput.classList.add("searchbarhide")
         sortBar.classList.add("sortbarhide")
         sortBy.classList.add("sortbyhide")
@@ -149,4 +154,47 @@ export async function ToggleSearchbar()
     }
 
     isSearchbarToggled = !isSearchbarToggled
+}
+
+export async function ToggleDateModeModal()
+{
+    const dateModeModal = document.querySelector("#datemodemodal")
+    const body = document.querySelector("body")
+
+    body.classList.add("no-overflow")
+
+    if (isDateModeModalToggled)
+    {
+        dateModeModal.classList.add("sortdatemodehide")
+
+        await Utility.sleep(500)
+
+        dateModeModal.classList.add("hidden")
+        dateModeModal.classList.remove("sortdatemodehide")
+    }
+    else
+    {
+        dateModeModal.classList.remove("hidden")
+        dateModeModal.classList.add("sortdatemodeshow")
+
+        await Utility.sleep(500)
+
+        dateModeModal.classList.remove("sortdatemodeshow")
+    }
+
+    body.classList.remove("no-overflow")
+
+    isDateModeModalToggled = !isDateModeModalToggled
+}
+
+export function ToggleRangeMenu()
+{
+    const dateModeModal = document.querySelector("#datemodemodal")
+
+    if (isRangeMenuToggled)
+    dateModeModal.classList.remove("datemodemodalextended")
+    else
+    dateModeModal.classList.add("datemodemodalextended")
+
+    isRangeMenuToggled = !isRangeMenuToggled
 }

@@ -4,7 +4,7 @@ function CompareObjectsAlphabetically(firstObject, secondObject, parameter)
     0 : firstObject[parameter].toLowerCase() > secondObject[parameter].toLowerCase() ? 1 : -1
 }
 
-function CompareDates(firstDate, secondDate, sortMode, rangeStart = null, rangeEnd = null)
+function CompareDates(firstDate, secondDate, sortMode, rangeStart, rangeEnd)
 {
     switch (sortMode)
     {
@@ -24,11 +24,6 @@ function CompareDates(firstDate, secondDate, sortMode, rangeStart = null, rangeE
     }
 }
 
-function DateToUnixTimestamp(date)
-{
-    return new Date(date).getTime() / 1000;
-}
-
 export function sleep(ms) { return new Promise((resolve) => {setTimeout(resolve, ms)}) }
 
 export function AlphabeticalSort(array, parameter)
@@ -36,7 +31,7 @@ export function AlphabeticalSort(array, parameter)
     return array.sort((first, second) => CompareObjectsAlphabetically(first, second, parameter))
 }
 
-export function SortByDate(array, sortMode)
+export function SortByDate(array, sortMode, rangeStart, rangeEnd)
 {    
     return array.sort((first, second) => CompareDates(first.date, second.date, sortMode, rangeStart, rangeEnd))
 }
