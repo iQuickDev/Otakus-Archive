@@ -177,7 +177,7 @@ function SortContent()
     SortTableBy(this.textContent.toLowerCase())
 }
 
-function SortTableBy(sortCriteria)
+function SortTableBy(sortCriteria, sortMode)
 {
     let tableObject = JSON.parse(localStorage.getItem("tableData"))
 
@@ -198,8 +198,7 @@ function SortTableBy(sortCriteria)
             break
 
         case "date":
-            return alert("Not yet implemented")
-            //sortedTableObject = Utility.SortByDate(tableObject)
+            sortedTableObject = Utility.SortByDate(tableObject, sortMode, rangeStart, rangeEnd)
             break
 
         case "tags":
