@@ -1,7 +1,6 @@
 var isSettingsPanelToggled = false
 var isSearchbarToggled = false
-var isDateModeModalToggled = false
-var isRangeMenuToggled = false
+export var isDateModeModalToggled = false
 
 export async function ToggleSettings()
 {
@@ -36,8 +35,8 @@ export function SetTheme(mode)
         themeIcon.src = "frontend/media/darkmode.png"
         themeIcon.classList.add("themeicon-dark")
         themeIcon.classList.remove("themeicon-light")
-        root.style.setProperty("--background-color", "#303030")
-        root.style.setProperty("--window-color", "#404040")
+        root.style.setProperty("--background-color", "#333")
+        root.style.setProperty("--window-color", "#444")
         root.style.setProperty("--text-color", "#FFF")
     }
     else
@@ -49,13 +48,28 @@ export function SetTheme(mode)
         root.style.setProperty("--window-color", "#CCC")
         root.style.setProperty("--text-color", "#000")
     }
+
+    document.querySelector("#transparency").checked = false
+}
+
+export function SetTransparency(isTransparent)
+{   
+    const root = document.documentElement
+    
+    if (isTransparent)
+    {
+        root.style.setProperty("--background-color", "#3336")
+        root.style.setProperty("--window-color", "#4446")
+    }
+    else
+        SetTheme(localStorage.getItem("themeMode"))
 }
 
 export async function AddContent()
 {
     const backgroundDarkener = document.querySelector(".darken-background")
     const newContentPanel = document.querySelector("#newcontent")
-    const body = document.querySelector("body")
+    const body = document.querySelector("body") 
 
     backgroundDarkener.classList.remove("hidden")
 
@@ -185,16 +199,4 @@ export async function ToggleDateModeModal()
     body.classList.remove("no-overflow")
 
     isDateModeModalToggled = !isDateModeModalToggled
-}
-
-export function ToggleRangeMenu()
-{
-    const dateModeModal = document.querySelector("#datemodemodal")
-
-    if (isRangeMenuToggled)
-    dateModeModal.classList.remove("datemodemodalextended")
-    else
-    dateModeModal.classList.add("datemodemodalextended")
-
-    isRangeMenuToggled = !isRangeMenuToggled
 }

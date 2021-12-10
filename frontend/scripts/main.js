@@ -8,6 +8,7 @@ window.UI = UI
 
 document.querySelector("#themeicon").onclick = ToggleTheme
 document.querySelector("#settingsbtn").onclick = UI.ToggleSettings
+document.querySelector("#transparency").onclick = ToggleTransparency
 document.querySelector("#bgimageinput").onchange = UI.ChangeBGImage
 document.querySelector("#resetsettings").onclick = UI.ResetBGImage
 document.querySelector("#firsttimeaddcontent").onclick = UI.AddContent
@@ -17,7 +18,6 @@ document.querySelector("#submitnewcontent").onclick = SubmitNewContent
 document.querySelector("#closemodal").onclick = UI.CloseNewContentModal
 document.querySelector("#searchbtn").onclick = UI.ToggleSearchbar
 document.querySelector("#sortcriteria").children[3].onclick = UI.ToggleDateModeModal // date sort menu
-document.querySelector("#sortbyrange").onclick = UI.ToggleRangeMenu
 document.querySelector("#searchbarinput").onkeyup = Search
 document.querySelector("#mobile-searchbarinput").onkeyup = Search
 document.querySelector("#importdata").onclick = Import
@@ -42,6 +42,7 @@ function Initialize()
     {
         localStorage.setItem("initialized", true)
         localStorage.setItem("themeMode", "dark")
+        localStorage.setItem("isTransparent", false)
     }
     else
     {
@@ -49,6 +50,7 @@ function Initialize()
         let bgImage = localStorage.getItem("bgimage")
         document.querySelector("body").style.backgroundImage = `url(${bgImage})`
         UI.SetTheme(localStorage.getItem("themeMode"))
+        UI.SetTransparency(localStorage.getItem("isTransparent"))
         Sync.ImportData(localStorage.getItem("tableData"))
     }
 }
@@ -74,13 +76,23 @@ async function ToggleTheme()
     {
         UI.SetTheme("light")
     }
-
+    
     themeIcon.classList.add("rotatein")
 
     await Utility.sleep(500)
 
     themeIcon.classList.remove("rotatein")
 }
+
+function ToggleTransparency()
+{   
+    let transparencyCheckbox = document.querySelector("#transparency")
+
+    transparencyCheckbox.checked ? localStorage.setItem("isTransparent", true) : localStorage.setItem("isTransparent", false)
+
+    UI.SetTransparency(transparencyCheckbox.checked)
+}
+
 
 function RemoveContent()
 {
@@ -174,14 +186,18 @@ function SortContent()
 {
     let sortCriteria = document.querySelector("#sortcriteria").children
 
-    for (let i = 0; i < sortCriteria.length; i++) sortCriteria[i].classList.remove("selector")
+    if (this.innerText !== "Date" && UI.isDateModeModalToggled)
+    UI.ToggleDateModeModal()
+
+    for (let i = 0; i < sortCriteria.length; i++)
+    sortCriteria[i].classList.remove("selector")
 
     this.classList.add("selector")
 
     SortTableBy(this.textContent.toLowerCase())
 }
 
-function SortTableBy(sortCriteria, sortMode, rangeStart, rangeEnd)
+function SortTableBy(sortCriteria, sortMode)
 {
     let tableObject = JSON.parse(localStorage.getItem("tableData"))
 
@@ -202,7 +218,7 @@ function SortTableBy(sortCriteria, sortMode, rangeStart, rangeEnd)
             break
 
         case "date":
-            sortedTableObject = Utility.SortByDate(tableObject, sortMode, rangeStart, rangeEnd)
+            sortedTableObject = Utility.SortByDate(tableObject, sortMode)
             break
 
         case "tags":
@@ -222,16 +238,7 @@ function SwitchDateSortMode()
 
     this.classList.add("selector")
 
-    let rangeStart = document.querySelector("#rangestart").value
-    let rangeEnd = document.querySelector("#rangeend").value
-
-    if (this.innerText != "range")
-    {
-        rangeStart = 0
-        rangeEnd = 0
-    }
-
-    SortTableBy("date", this.innerText.toLowerCase(), rangeStart, rangeEnd)
+    SortTableBy("date", this.innerText.toLowerCase())
 }
 
 async function CheckIfListIsEmpty()

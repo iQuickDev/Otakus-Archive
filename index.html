@@ -25,6 +25,12 @@
             <div id="settingspanel" class="hidden">
                 <h3>Settings</h3>
                 <h4>Style</h4>
+                <label for="transparency">Transparency</label>
+                <input id="transparency" name="transparency" type="checkbox">
+                <div class="toggleswitchbase">
+                    
+                    <div class="toggleswitchhandle"></div>
+                </div>
                 <label for="bgimageurl">Wallpaper (Link)</label>
                 <input name="bgimageurl" type="text" id="bgimageinput">
                 <button id="resetsettings" type="button" class="smallbtn btn-red">Reset</button>
@@ -150,17 +156,8 @@
                 </ul>
             </div>
             <div id="datemodemodal" class="hidden">
-                <h2>Mode</h2>
                 <h3 id="sortbynewest">Newest</h3>
                 <h3 id="sortbyoldest">Oldest</h3>
-                <h3 id="sortbyrange">Range</h3>
-                <label for="rangestart">from</label>
-                <br>
-                <input name="rangestart" id="rangestart" type="date">
-                <br>
-                <label for="rangeend" >to</label>
-                <br>
-                <input name="rangeend" id="rangeend" type="date">
             </div>
         </div>
 

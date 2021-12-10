@@ -14,7 +14,6 @@
     --btn-yellow-background: #FFFF00;
     --sort-selected-color: #000000;
     --box-border-color: #000000;
-    --subtitle-background-color: #333;
     --below-all: -1;
     --base-layer: 1;
     --second-layer: 2;
@@ -23,6 +22,12 @@
     --above-all: 100;
 
     font-family: 'Varela Round', sans-serif;
+}
+
+::-webkit-input-placeholder
+{
+    color: var(--text-color);
+    opacity: 1;
 }
 
 *
@@ -123,8 +128,42 @@ body
 #settingspanel h4
 {
     margin: 0;
-    background: var(--subtitle-background-color);
+    background: var(--background-color);
     padding: 5px;
+}
+
+#transparency
+{
+    appearance: unset;
+    position: absolute;
+    top: 85px;
+    left: 58px;
+    width: 50px;
+    height: 35px;
+    z-index: var(--third-layer);
+}
+
+#transparency:checked + div > div
+{
+    transform: translateX(15px);
+}
+
+.toggleswitchbase
+{
+    margin-top: -50px;
+    width: 40px;
+    border-radius: 50px;
+    background-color: var(--background-color);
+}
+
+.toggleswitchhandle
+{
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    transform: translateX(-15px);
+    transition: transform .25s;
 }
 
 #bgimageinput
